@@ -15,6 +15,8 @@ function addQuoteAction() {
     actions.appendChild(discover);
   }
 
+  discover.firstChild.textContent = 'Discover all volumes ';
+
   const quote = document.createElement('a');
   quote.className = 'pill quote-pill';
   quote.href = '#contact';
@@ -51,8 +53,8 @@ function reorderServices() {
 
     const byTitle = new Map(articles.map((article) => [article.querySelector('h2')?.textContent.trim().toLowerCase(), article]));
     const ordered = [
-      byTitle.get('design consultation'),
       byTitle.get('turnkey interiors'),
+      byTitle.get('design consultation'),
       byTitle.get('3d visualisation'),
     ].filter(Boolean);
 
@@ -73,8 +75,8 @@ function reorderServices() {
     const named = new Map(options.map((o) => [o.textContent.trim().toLowerCase(), o]));
     const ordered = [
       placeholder,
-      named.get('design consultation'),
       named.get('turnkey interiors'),
+      named.get('design consultation'),
       named.get('3d visualisation'),
       other,
     ].filter(Boolean);
