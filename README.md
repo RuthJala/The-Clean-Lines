@@ -12,3 +12,5 @@ Video uses browser-native H.264 MP4 with short keyframe intervals, separate mobi
 Enquiries are prepared locally and opened in the visitor's email app. No backend, automatic sending or fake submission confirmation. Email: thecleanlines27@gmail.com. Instagram: @thecleanlines_. Add phone/WhatsApp only after the owner confirms the current number.
 
 Project titles use the supplied volume labels because client names, locations and execution status have not been confirmed. Original source files remain in the owner's Drive. This repository includes optimized WebP derivatives and web video encodes.
+
+The 130 optimized project images (260 full-size and thumbnail files) are stored in `media/projects.tar.gz.part1` and `.part2`. `npm install`, `npm run dev` and `npm run build` automatically unpack them into `public/assets/projects` using the included Node script. The resulting static deployment contains ordinary WebP files and requires no server-side extraction. The archive keeps the complete collection together for reliable transfer.

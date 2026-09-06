@@ -7,7 +7,10 @@
     "dev": "vite",
     "build": "vite build && node scripts/prepare-sites-build.mjs",
     "preview": "vite preview",
-    "test:sites": "node --test tests/sites-worker.test.mjs"
+    "test:sites": "node --test tests/sites-worker.test.mjs",
+    "predev": "node scripts/unpack-assets.mjs",
+    "prebuild": "node scripts/unpack-assets.mjs",
+    "postinstall": "node scripts/unpack-assets.mjs"
   },
   "dependencies": {
     "@fontsource/cormorant-garamond": "^5.3.0",
