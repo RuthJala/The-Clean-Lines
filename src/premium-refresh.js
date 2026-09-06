@@ -40,19 +40,66 @@ function upgradeFeaturedImages() {
 
   document.querySelectorAll('.work-stage img, .gallery img, .studio-grid img, .work-bottom img').forEach((img) => {
     img.decoding = 'async';
+    img.setAttribute('sizes', '(max-width: 700px) 100vw, 90vw');
   });
 }
 
-function tagStudioPage() {
-  const grid = document.querySelector('.studio-grid');
-  const main = grid?.closest('main.page');
-  if (main) main.classList.add('studio-page');
+function reorderServices() {
+  document.querySelectorAll('.services-list').forEach((list) => {
+    const articles = [...list.querySelectorAll('article')];
+    if (articles.length !== 3 || list.dataset.premiumOrder === 'true') return;
+
+    const byTitle = new Map(articles.map((article) => [article.querySelector('h2')?.textContent.trim().toLowerCase(), article]));
+    const ordered = [
+      byTitle.get('design consultation'),
+      byTitle.get('turnkey interiors'),
+      byTitle.get('3d visualisation'),
+    ].filter(Boolean);
+
+    if (ordered.length !== 3) return;
+    ordered.forEach((article, index) => {
+      const number = article.querySelector(':scope > span');
+      if (number) number.textContent = `0${index + 1}`;
+      list.appendChild(article);
+    });
+    list.dataset.premiumOrder = 'true';
+  });
+
+  document.querySelectorAll('select[name="service"]').forEach((select) => {
+    if (select.dataset.premiumOrder === 'true') return;
+    const options = [...select.options];
+    const placeholder = options.find((o) => !o.value);
+    const other = options.find((o) => /something else/i.test(o.textContent));
+    const named = new Map(options.map((o) => [o.textContent.trim().toLowerCase(), o]));
+    const ordered = [
+      placeholder,
+      named.get('design consultation'),
+      named.get('turnkey interiors'),
+      named.get('3d visualisation'),
+      other,
+    ].filter(Boolean);
+    ordered.forEach((option) => select.appendChild(option));
+    select.dataset.premiumOrder = 'true';
+  });
+}
+
+function tagPages() {
+  const studioGrid = document.querySelector('.studio-grid');
+  const studioMain = studioGrid?.closest('main.page');
+  if (studioMain) studioMain.classList.add('studio-page');
+
+  const servicesPage = document.querySelector('.services-page');
+  if (servicesPage) servicesPage.classList.add('premium-services-page');
+
+  const workPage = document.querySelector('.work-page');
+  if (workPage) workPage.classList.add('premium-work-page');
 }
 
 function applyPremiumRefresh() {
   addQuoteAction();
   upgradeFeaturedImages();
-  tagStudioPage();
+  reorderServices();
+  tagPages();
 }
 
 function schedulePremiumRefresh() {
