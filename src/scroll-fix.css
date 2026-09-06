@@ -1,0 +1,28 @@
+/* Homepage walkthrough reliability + transparent logo treatment */
+.site-header.on-film .logo,
+.logo {
+  background: transparent !important;
+}
+
+.site-header.on-film .logo img {
+  filter: brightness(0) invert(1);
+  mix-blend-mode: normal;
+}
+
+/* The legacy pause toggle controls the old seek loop. The dedicated scrubber now
+   owns the film timeline, so hide that conflicting control and keep Skip to work. */
+.journey .film-controls > button {
+  display: none !important;
+}
+
+.journey .film video {
+  will-change: contents;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+}
+
+@media (max-width: 700px) {
+  .site-header.on-film .logo {
+    background: transparent !important;
+  }
+}
