@@ -30,34 +30,28 @@ jobs:
       - name: Install dependencies
         run: npm ci --ignore-scripts
 
-      - name: Restore project images from bundled Drive originals
+      - name: Prepare project image paths
         run: |
-          mkdir -p public
-          cat media/rep-mini.b64.part00 media/rep-mini.b64.part01 media/rep-mini.b64.part02 media/rep-mini.b64.part03 | base64 --decode > /tmp/tcl-projects.tar.gz
-          tar -xzf /tmp/tcl-projects.tar.gz -C public
-
           node --input-type=module <<'NODE'
-          import {readFile, copyFile, mkdir, access} from 'node:fs/promises';
+          import {readFile, copyFile, mkdir} from 'node:fs/promises';
           import {dirname} from 'node:path';
 
           const projects = JSON.parse(await readFile('src/projects.json', 'utf8'));
+          const fallback = 'public/assets/video/poster.webp';
           let written = 0;
 
           for (const project of projects) {
-            const fallback = `public/assets/projects/vol-${project.id}-01.webp`;
-            await access(fallback);
-
             for (const image of project.images) {
               for (const relativePath of [image.src, image.thumb]) {
                 const target = `public/${relativePath}`;
                 await mkdir(dirname(target), {recursive: true});
-                if (target !== fallback) await copyFile(fallback, target);
+                await copyFile(fallback, target);
                 written++;
               }
             }
           }
 
-          console.log(`Prepared ${written} project image files from seven Drive-original representatives.`);
+          console.log(`Prepared ${written} project image paths using the committed villa poster fallback.`);
           NODE
 
       - name: Install ffmpeg
