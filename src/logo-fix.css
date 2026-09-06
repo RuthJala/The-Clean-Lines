@@ -1,27 +1,41 @@
-/* The supplied PNG has generous transparent canvas around the mark.
-   Scale that exact asset up inside the header instead of cropping or recolouring it. */
+/* The supplied TCL PNG is genuinely transparent and includes generous empty canvas.
+   Scale the original artwork itself; do not recolour it or put a background behind it. */
 .logo,.site-header .logo{
+  width:150px!important;
+  height:108px!important;
   overflow:visible!important;
   background:transparent!important;
+  display:flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  flex:0 0 auto!important;
 }
 .logo img,.site-header .logo img{
-  width:158px!important;
+  position:static!important;
+  width:228px!important;
   max-width:none!important;
   height:auto!important;
-  flex:0 0 auto;
+  flex:0 0 auto!important;
   object-fit:contain!important;
+  object-position:center!important;
   background:transparent!important;
   mix-blend-mode:normal!important;
-}
-.site-header:not(.on-film) .logo img{
-  filter:drop-shadow(0 1px 5px rgba(242,239,231,.16))!important;
+  filter:none!important;
+  transform:none!important;
 }
 .site-header.on-film .logo img{
-  filter:drop-shadow(0 2px 7px rgba(0,0,0,.34))!important;
+  filter:drop-shadow(0 2px 9px rgba(0,0,0,.38))!important;
 }
+.site-header:not(.on-film) .logo img{
+  filter:drop-shadow(0 2px 7px rgba(0,0,0,.12))!important;
+}
+
 @media(max-width:1000px){
-  .logo img,.site-header .logo img{width:144px!important}
+  .logo,.site-header .logo{width:136px!important;height:100px!important}
+  .logo img,.site-header .logo img{width:208px!important}
 }
+
 @media(max-width:700px){
-  .logo img,.site-header .logo img{width:122px!important}
+  .logo,.site-header .logo{width:116px!important;height:82px!important}
+  .logo img,.site-header .logo img{width:178px!important}
 }
