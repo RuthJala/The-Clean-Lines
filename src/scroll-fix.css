@@ -1,28 +1,29 @@
-/* Homepage walkthrough reliability + transparent logo treatment */
-.site-header.on-film .logo,
+/* Homepage walkthrough reliability + logo white-background removal */
 .logo {
   background: transparent !important;
 }
 
+/* The supplied PNG contains a white canvas. On the dark film header, multiply removes
+   that white canvas and keeps the dark logo artwork visible. Invert then turns it white. */
 .site-header.on-film .logo img {
-  filter: brightness(0) invert(1);
-  mix-blend-mode: normal;
+  mix-blend-mode: multiply;
+  filter: invert(1) grayscale(1) brightness(1.25) contrast(2);
+  background: transparent !important;
 }
 
-/* The legacy pause toggle controls the old seek loop. The dedicated scrubber now
-   owns the film timeline, so hide that conflicting control and keep Skip to work. */
+/* Keep non-film pages readable even if the original PNG has a white canvas. */
+.site-header:not(.on-film) .logo {
+  background: var(--ivory) !important;
+}
+
+/* The legacy pause toggle controls the old seek loop. The dedicated scrubber owns
+   the film timeline, so hide that conflicting control and keep Skip to work. */
 .journey .film-controls > button {
   display: none !important;
 }
 
 .journey .film video {
-  will-change: contents;
+  will-change: transform;
   transform: translateZ(0);
   backface-visibility: hidden;
-}
-
-@media (max-width: 700px) {
-  .site-header.on-film .logo {
-    background: transparent !important;
-  }
 }
