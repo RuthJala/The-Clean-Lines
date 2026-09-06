@@ -1,28 +1,16 @@
-# Design QA — The Clean Lines
+# Walkthrough correction QA — 6 September 2026
 
-Result: **PASSED**
+The owner's iPhone recording showed text and scroll progress advancing while the MP4 stayed on its poster. Earlier desktop checks did not establish reliability on that device.
 
-## Visual direction
+Replaced video seeking with 662 canvas-rendered frames covering the full 33.1-second source. Desktop and mobile WebP sheets load progressively; no autoplay permission or media-ready event is needed. Removed the logo background box while retaining the supplied transparent PNG with a white treatment.
 
-- The Work page was compared side-by-side with the selected olive/ivory concept at equal width.
-- Preserved the approved composition: ivory logo rail, oversized editorial serif headline, seven-volume index, dominant villa image, and contrasting ivory project strip.
-- The homepage intentionally replaces the static portfolio hero with the newly supplied full-screen walkthrough, as explicitly requested.
+Verified in the internal Chromium preview:
+- Native Page Down changed the desktop canvas from frame 0 to frame 68 at 10% scroll.
+- Final chapter reached frame 661 with the final interior visible, not padded black cells.
+- A 390 × 844 mobile iframe selected the mobile sequence and reached frames 264 and 661.
+- Pausing at frame 661 held frame 661 while navigating back to chapter one; motion can be enabled again.
+- Desktop and mobile screenshots showed the logo without a background rectangle.
+- Build extracted 260 project image derivatives and 166 walkthrough sheets successfully.
+- Production build and all four hosting-adapter tests passed after the build completed.
 
-## Functional checks
-
-- Full 33.1-second walkthrough maps from 0% to the last visible frame at 33.066 seconds.
-- Native scroll, six chapter jumps, pause/enable motion, skip-to-work and reduced-motion behavior tested.
-- Desktop source: H.264 MP4, 1280px wide, short GOP, 10.7 MB.
-- Mobile source: H.264 MP4, 800px wide, short GOP, 6.9 MB; 390 × 844 responsive layout inspected with no horizontal overflow.
-- Mobile navigation opens and exposes Work, Services, Studio and Contact.
-- All 130 source project images produced 260 validated WebP files (full + thumbnail); no broken images in the tested Work view.
-- Seven project routes, image lightbox, next/previous controls and Escape close tested.
-- Contact form prepares an email locally and does not claim to submit anything automatically.
-- Production build and four hosting-adapter tests pass.
-
-## Known constraints
-
-- `object-fit: cover` crops the sides of the 16:9 walkthrough on portrait screens to keep the experience full-viewport.
-- Browser testing covered desktop Chromium and a 390 × 844 responsive viewport; physical iOS/Android devices were not available in this environment.
-- The exported source contains its original camera acceleration and motion blur; the website maps it smoothly but does not alter the camera path.
-- Phone and WhatsApp are intentionally omitted until the current number is confirmed.
+Physical iOS/Android hardware was unavailable. The mobile check covers responsive layout and sequence behavior in Chromium, not Safari hardware performance. Portrait framing crops the landscape video to cover the viewport. Original camera acceleration and motion blur remain part of the supplied render. Phone/WhatsApp details still await the owner's confirmed number.

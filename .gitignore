@@ -1,4 +1,7 @@
 node_modules/
+public/assets/walkthrough/
+qa-preview.html
+public/qa-temp/
 dist/
 mobile-preview.html
 public/assets/projects/
