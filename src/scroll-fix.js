@@ -10,100 +10,100 @@ function startScrollScrub() {
 
   if (activeCleanup) activeCleanup();
 
-  // Disable the older React seek loop so only one scrubber controls currentTime.
+  // Stop the older React scrubber so only this queue controls video.currentTime.
   const legacyMotionButton = document.querySelector('.film-controls button');
   if (legacyMotionButton && /pause/i.test(legacyMotionButton.textContent || '')) {
     legacyMotionButton.click();
   }
 
-  let desiredProgress = 0;
-  let easedProgress = 0;
-  let rafId = 0;
-  let lastSeekAt = 0;
-  let destroyed = false;
-
-  const isMobile = matchMedia('(max-width: 700px)').matches;
-  const seekInterval = isMobile ? 42 : 28;
   const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  let desiredProgress = 0;
+  let desiredTime = 0;
+  let seekScheduled = false;
+  let seekInFlight = false;
+  let destroyed = false;
+  let frameId = 0;
 
-  const updateProgress = () => {
+  const computeProgress = () => {
     const rect = journey.getBoundingClientRect();
     const scrollable = Math.max(1, rect.height - window.innerHeight);
     desiredProgress = clamp(-rect.top / scrollable);
+
+    if (video.readyState >= 1 && Number.isFinite(video.duration) && video.duration > 0) {
+      desiredTime = desiredProgress * Math.max(0.001, video.duration - 1 / 30);
+      scheduleSeek();
+    }
   };
 
-  const warmDecoder = async () => {
-    if (reducedMotion || destroyed || video.readyState < 1) return;
+  const performSeek = () => {
+    seekScheduled = false;
+    if (destroyed || reducedMotion || video.readyState < 1 || !Number.isFinite(video.duration)) return;
+
+    // Serialise seeks. If scrolling continues while one seek is decoding, seeked will
+    // immediately jump to the newest desiredTime instead of starving the video renderer.
+    if (seekInFlight || video.seeking) {
+      seekScheduled = true;
+      return;
+    }
+
+    const delta = desiredTime - video.currentTime;
+    if (Math.abs(delta) < 0.012) return;
+
+    try {
+      seekInFlight = true;
+      video.currentTime = desiredTime;
+    } catch {
+      seekInFlight = false;
+    }
+  };
+
+  function scheduleSeek() {
+    if (seekScheduled || destroyed) return;
+    seekScheduled = true;
+    frameId = requestAnimationFrame(performSeek);
+  }
+
+  const onSeeked = () => {
+    seekInFlight = false;
+    if (Math.abs(desiredTime - video.currentTime) > 0.012) scheduleSeek();
+  };
+
+  const onMetadata = async () => {
     video.muted = true;
     video.playsInline = true;
     video.preload = 'auto';
 
-    try {
-      const playPromise = video.play();
-      if (playPromise && typeof playPromise.then === 'function') await playPromise;
-      video.pause();
-      if (Number.isFinite(video.duration) && video.duration > 0) {
-        video.currentTime = Math.min(0.04, video.duration / 1000);
-      }
-    } catch {
+    // Briefly warm the decoder. Muted inline playback is allowed on modern desktop/mobile.
+    if (!reducedMotion) {
       try {
+        await video.play();
         video.pause();
-        video.currentTime = 0.001;
       } catch {
-        // Some browsers only allow the first seek after metadata is fully available.
-      }
-    }
-  };
-
-  const tick = (now) => {
-    if (destroyed) return;
-
-    // A soft follow gives the Kage-like smooth scrub without making the timeline lag.
-    easedProgress += (desiredProgress - easedProgress) * (isMobile ? 0.2 : 0.16);
-    if (Math.abs(desiredProgress - easedProgress) < 0.00035) {
-      easedProgress = desiredProgress;
-    }
-
-    if (!reducedMotion && video.readyState >= 1 && Number.isFinite(video.duration) && video.duration > 0) {
-      const usableDuration = Math.max(0.001, video.duration - 1 / 30);
-      const wantedTime = clamp(easedProgress) * usableDuration;
-      const delta = wantedTime - video.currentTime;
-
-      // Crucially, do not block while video.seeking. Newer seek requests are coalesced by
-      // the browser, preventing the old "stuck on one frame" behaviour during scrolling.
-      if (Math.abs(delta) > 0.012 && (now - lastSeekAt >= seekInterval || Math.abs(delta) > 0.7)) {
-        try {
-          video.currentTime = wantedTime;
-          lastSeekAt = now;
-        } catch {
-          // Keep the animation loop alive; the next frame retries after media is ready.
-        }
+        video.pause();
       }
     }
 
-    rafId = requestAnimationFrame(tick);
+    computeProgress();
   };
 
-  const onLoadedMetadata = () => {
-    updateProgress();
-    easedProgress = desiredProgress;
-    warmDecoder();
-  };
+  video.pause();
+  window.addEventListener('scroll', computeProgress, { passive: true });
+  window.addEventListener('resize', computeProgress, { passive: true });
+  video.addEventListener('seeked', onSeeked);
+  video.addEventListener('loadedmetadata', onMetadata);
 
-  updateProgress();
-  window.addEventListener('scroll', updateProgress, { passive: true });
-  window.addEventListener('resize', updateProgress, { passive: true });
-  video.addEventListener('loadedmetadata', onLoadedMetadata);
+  if (video.readyState >= 1) onMetadata();
+  else video.load();
 
-  if (video.readyState >= 1) onLoadedMetadata();
-  rafId = requestAnimationFrame(tick);
+  computeProgress();
 
   activeCleanup = () => {
     destroyed = true;
-    cancelAnimationFrame(rafId);
-    window.removeEventListener('scroll', updateProgress);
-    window.removeEventListener('resize', updateProgress);
-    video.removeEventListener('loadedmetadata', onLoadedMetadata);
+    cancelAnimationFrame(frameId);
+    window.removeEventListener('scroll', computeProgress);
+    window.removeEventListener('resize', computeProgress);
+    video.removeEventListener('seeked', onSeeked);
+    video.removeEventListener('loadedmetadata', onMetadata);
     activeCleanup = null;
   };
 
@@ -113,7 +113,8 @@ function startScrollScrub() {
 function scheduleInit() {
   cancelAnimationFrame(initFrame);
   initFrame = requestAnimationFrame(() => {
-    if (!document.querySelector('.journey video')) {
+    const hasFilm = Boolean(document.querySelector('.journey video'));
+    if (!hasFilm) {
       if (activeCleanup) activeCleanup();
       return;
     }
