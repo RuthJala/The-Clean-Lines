@@ -12,13 +12,13 @@ export default function ScrollFilm({progress, enabled, onStatus}) {
     const ctx = el.getContext('2d', {alpha:false, desynchronized:true});
     const mobile = matchMedia('(max-width:700px)').matches;
 
-    // Use the same higher-resolution sequence on desktop and mobile. Mobile should crop,
-    // not receive a visibly softer source.
+    // Mobile uses the same 1280px master sequence as desktop. We crop it; we do not
+    // swap in a softer version, so the walkthrough stays crisp on high-DPI phones.
     const variant = 'desktop';
     const sourceWidth = 1280, sourceHeight = 720;
     const cache = new Map(), pending = new Map(), failed = new Map();
-    const MAX_CACHE = mobile ? 12 : 16;
-    const MAX_PENDING = mobile ? 4 : 6;
+    const MAX_CACHE = mobile ? 18 : 26;
+    const MAX_PENDING = mobile ? 6 : 8;
     let stopped = false, position = 0, drawn = -1, raf, lastTime = 0, status = '';
 
     const report = value => {
@@ -37,14 +37,15 @@ export default function ScrollFilm({progress, enabled, onStatus}) {
       const dir = target >= current ? 1 : -1;
       const ordered = [
         target,
-        current,
-        target + dir,
-        target + dir * 2,
         current + dir,
+        current,
         target - dir,
-        current - dir,
-        target + dir * 3,
         current + dir * 2,
+        target + dir,
+        current - dir,
+        current + dir * 3,
+        target - dir * 2,
+        target + dir * 2,
       ];
       return [...new Set(ordered)].filter(i => i >= 0 && i < SHEETS);
     };
@@ -53,7 +54,7 @@ export default function ScrollFilm({progress, enabled, onStatus}) {
       const current = sheetOf(position);
       const target = sheetOf(desired());
       const keep = new Set(prioritySheets());
-      for (let d = -3; d <= 3; d++) {
+      for (let d = -4; d <= 4; d++) {
         if (current + d >= 0 && current + d < SHEETS) keep.add(current + d);
         if (target + d >= 0 && target + d < SHEETS) keep.add(target + d);
       }
@@ -104,7 +105,7 @@ export default function ScrollFilm({progress, enabled, onStatus}) {
           prune();
         }
       } catch (error) {
-        if (!stopped && error.name !== 'AbortError') failed.set(i, Date.now() + 2800);
+        if (!stopped && error.name !== 'AbortError') failed.set(i, Date.now() + 2200);
       } finally {
         pending.delete(i);
       }
@@ -135,8 +136,7 @@ export default function ScrollFilm({progress, enabled, onStatus}) {
 
     const resize = () => {
       const r = el.getBoundingClientRect();
-      // Keep enough pixel density for retina mobile without exploding canvas memory.
-      const ratio = Math.min(devicePixelRatio || 1, mobile ? 2 : 1.75);
+      const ratio = Math.min(devicePixelRatio || 1, mobile ? 2 : 1.9);
       el.width = Math.max(1, Math.round(r.width * ratio));
       el.height = Math.max(1, Math.round(r.height * ratio));
       drawn = -1;
@@ -148,17 +148,28 @@ export default function ScrollFilm({progress, enabled, onStatus}) {
       lastTime = time;
       const target = desired();
 
-      // Quick enough to feel attached to the wheel/finger, soft enough to remove judder.
-      const smoothingMs = mobile ? 58 : 64;
+      // Short smoothing keeps the frame attached to the wheel/finger while taking the
+      // harsh edge off trackpad bursts. Mobile is intentionally a touch quicker.
+      const smoothingMs = mobile ? 48 : 55;
       let next = position + (target - position) * (1 - Math.exp(-dt / smoothingMs));
-      if (Math.abs(next - target) < .08) next = target;
+      if (Math.abs(next - target) < .06) next = target;
 
+      const currentSheet = sheetOf(position);
       const nextSheet = sheetOf(next);
       const targetSheet = sheetOf(target);
+
       if (cache.has(nextSheet)) {
         position = next;
-      } else if (cache.has(targetSheet) && Math.abs(target - position) > PER * 1.5) {
+      } else if (cache.has(targetSheet) && Math.abs(target - position) > PER * 1.35) {
+        // On a big scrollbar/trackpad jump, use the already-loaded destination instead
+        // of visibly crawling through missing sheets.
         position = target;
+      } else if (cache.has(currentSheet)) {
+        // Even while the next sheet downloads, keep moving through every available
+        // frame in the current sheet. This avoids the old "frozen image" feeling.
+        const start = currentSheet * PER;
+        const end = Math.min(LAST, start + PER - 1);
+        position = target >= position ? Math.min(next, end + .45) : Math.max(next, start - .45);
       }
 
       const frame = Math.max(0, Math.min(LAST, Math.round(position)));
@@ -178,9 +189,8 @@ export default function ScrollFilm({progress, enabled, onStatus}) {
     resize();
     addEventListener('resize', resize, {passive:true});
 
-    // Prime the first frames immediately so the transition from poster is quick.
-    void load(0);
-    void load(1);
+    // Prime enough consecutive material to make the first scroll gesture feel immediate.
+    for (let i = 0; i < (mobile ? 3 : 4); i++) void load(i);
     raf = requestAnimationFrame(tick);
 
     return () => {
