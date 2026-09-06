@@ -1,0 +1,27 @@
+/* The supplied PNG has generous transparent canvas around the mark.
+   Scale that exact asset up inside the header instead of cropping or recolouring it. */
+.logo,.site-header .logo{
+  overflow:visible!important;
+  background:transparent!important;
+}
+.logo img,.site-header .logo img{
+  width:158px!important;
+  max-width:none!important;
+  height:auto!important;
+  flex:0 0 auto;
+  object-fit:contain!important;
+  background:transparent!important;
+  mix-blend-mode:normal!important;
+}
+.site-header:not(.on-film) .logo img{
+  filter:drop-shadow(0 1px 5px rgba(242,239,231,.16))!important;
+}
+.site-header.on-film .logo img{
+  filter:drop-shadow(0 2px 7px rgba(0,0,0,.34))!important;
+}
+@media(max-width:1000px){
+  .logo img,.site-header .logo img{width:144px!important}
+}
+@media(max-width:700px){
+  .logo img,.site-header .logo img{width:122px!important}
+}
