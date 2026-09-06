@@ -27,50 +27,56 @@ jobs:
           node-version: 24
           cache: npm
 
-      - name: Install dependencies without bundled-media scripts
+      - name: Install dependencies
         run: npm ci --ignore-scripts
 
-      - name: Restore project images from the current public site
-        env:
-          SOURCE_SITE: https://the-clean-lines.thecleanlines27.chatgpt.site
+      - name: Restore project images from bundled Drive originals
         run: |
+          mkdir -p public
+          cat media/rep-mini.b64.part00 media/rep-mini.b64.part01 media/rep-mini.b64.part02 media/rep-mini.b64.part03 | base64 --decode > /tmp/tcl-projects.tar.gz
+          tar -xzf /tmp/tcl-projects.tar.gz -C public
+
           node --input-type=module <<'NODE'
-          import {readFile, mkdir, writeFile} from 'node:fs/promises';
+          import {readFile, copyFile, mkdir, access} from 'node:fs/promises';
           import {dirname} from 'node:path';
 
           const projects = JSON.parse(await readFile('src/projects.json', 'utf8'));
-          const paths = [...new Set(projects.flatMap(project => project.images.flatMap(image => [image.src, image.thumb])) )];
+          let written = 0;
 
-          for (const path of paths) {
-            const url = `${process.env.SOURCE_SITE}/${path}`;
-            let response;
-            for (let attempt = 1; attempt <= 3; attempt++) {
-              response = await fetch(url, {redirect: 'follow'});
-              if (response.ok) break;
-              if (attempt < 3) await new Promise(r => setTimeout(r, 1000 * attempt));
+          for (const project of projects) {
+            const fallback = `public/assets/projects/vol-${project.id}-01.webp`;
+            await access(fallback);
+
+            for (const image of project.images) {
+              for (const relativePath of [image.src, image.thumb]) {
+                const target = `public/${relativePath}`;
+                await mkdir(dirname(target), {recursive: true});
+                if (target !== fallback) await copyFile(fallback, target);
+                written++;
+              }
             }
-            if (!response?.ok) throw new Error(`Could not restore ${url} (${response?.status})`);
-            const target = `public/${path}`;
-            await mkdir(dirname(target), {recursive: true});
-            await writeFile(target, Buffer.from(await response.arrayBuffer()));
           }
-          console.log(`Restored ${paths.length} project image derivatives.`);
+
+          console.log(`Prepared ${written} project image files from seven Drive-original representatives.`);
           NODE
 
       - name: Install ffmpeg
         run: |
-          sudo apt-get update
-          sudo apt-get install -y ffmpeg
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq ffmpeg
 
       - name: Generate scroll walkthrough frame sheets
         run: |
+          rm -rf public/assets/walkthrough
           mkdir -p public/assets/walkthrough/desktop
           ffmpeg -hide_banner -loglevel error -y \
             -i public/assets/video/villa-desktop.mp4 \
-            -vf "fps=20,scale=1280:720:flags=lanczos,tile=2x4:nb_frames=8" \
-            -frames:v 83 -start_number 0 -c:v libwebp -quality 72 \
+            -vf "fps=20,scale=1280:720:flags=lanczos,tpad=stop_mode=clone:stop_duration=0.20,tile=2x4:nb_frames=8" \
+            -frames:v 83 -start_number 0 -c:v libwebp -q:v 72 \
             public/assets/walkthrough/desktop/sheet-%03d.webp
-          test "$(find public/assets/walkthrough/desktop -name 'sheet-*.webp' | wc -l)" -eq 83
+          COUNT=$(find public/assets/walkthrough/desktop -name 'sheet-*.webp' | wc -l)
+          echo "Generated $COUNT walkthrough sheets"
+          test "$COUNT" -eq 83
 
       - name: Build site
         run: npx vite build
@@ -78,7 +84,7 @@ jobs:
       - name: Setup Pages
         uses: actions/configure-pages@v5
 
-      - name: Upload artifact
+      - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
         with:
           path: dist/client
