@@ -1,0 +1,694 @@
+[
+  {
+    "id": 1,
+    "name": "Volume 01",
+    "images": [
+      {
+        "src": "assets/projects/vol-1-01.webp",
+        "thumb": "assets/projects/vol-1-01-sm.webp",
+        "alt": "The Clean Lines Volume 01 — interior view 01"
+      },
+      {
+        "src": "assets/projects/vol-1-02.webp",
+        "thumb": "assets/projects/vol-1-02-sm.webp",
+        "alt": "The Clean Lines Volume 01 — interior view 02"
+      },
+      {
+        "src": "assets/projects/vol-1-03.webp",
+        "thumb": "assets/projects/vol-1-03-sm.webp",
+        "alt": "The Clean Lines Volume 01 — interior view 03"
+      },
+      {
+        "src": "assets/projects/vol-1-04.webp",
+        "thumb": "assets/projects/vol-1-04-sm.webp",
+        "alt": "The Clean Lines Volume 01 — interior view 04"
+      },
+      {
+        "src": "assets/projects/vol-1-05.webp",
+        "thumb": "assets/projects/vol-1-05-sm.webp",
+        "alt": "The Clean Lines Volume 01 — interior view 05"
+      },
+      {
+        "src": "assets/projects/vol-1-06.webp",
+        "thumb": "assets/projects/vol-1-06-sm.webp",
+        "alt": "The Clean Lines Volume 01 — interior view 06"
+      },
+      {
+        "src": "assets/projects/vol-1-07.webp",
+        "thumb": "assets/projects/vol-1-07-sm.webp",
+        "alt": "The Clean Lines Volume 01 — interior view 07"
+      },
+      {
+        "src": "assets/projects/vol-1-08.webp",
+        "thumb": "assets/projects/vol-1-08-sm.webp",
+        "alt": "The Clean Lines Volume 01 — interior view 08"
+      },
+      {
+        "src": "assets/projects/vol-1-09.webp",
+        "thumb": "assets/projects/vol-1-09-sm.webp",
+        "alt": "The Clean Lines Volume 01 — interior view 09"
+      },
+      {
+        "src": "assets/projects/vol-1-10.webp",
+        "thumb": "assets/projects/vol-1-10-sm.webp",
+        "alt": "The Clean Lines Volume 01 — interior view 10"
+      },
+      {
+        "src": "assets/projects/vol-1-11.webp",
+        "thumb": "assets/projects/vol-1-11-sm.webp",
+        "alt": "The Clean Lines Volume 01 — interior view 11"
+      },
+      {
+        "src": "assets/projects/vol-1-12.webp",
+        "thumb": "assets/projects/vol-1-12-sm.webp",
+        "alt": "The Clean Lines Volume 01 — interior view 12"
+      },
+      {
+        "src": "assets/projects/vol-1-13.webp",
+        "thumb": "assets/projects/vol-1-13-sm.webp",
+        "alt": "The Clean Lines Volume 01 — interior view 13"
+      },
+      {
+        "src": "assets/projects/vol-1-14.webp",
+        "thumb": "assets/projects/vol-1-14-sm.webp",
+        "alt": "The Clean Lines Volume 01 — interior view 14"
+      },
+      {
+        "src": "assets/projects/vol-1-15.webp",
+        "thumb": "assets/projects/vol-1-15-sm.webp",
+        "alt": "The Clean Lines Volume 01 — interior view 15"
+      },
+      {
+        "src": "assets/projects/vol-1-16.webp",
+        "thumb": "assets/projects/vol-1-16-sm.webp",
+        "alt": "The Clean Lines Volume 01 — interior view 16"
+      },
+      {
+        "src": "assets/projects/vol-1-17.webp",
+        "thumb": "assets/projects/vol-1-17-sm.webp",
+        "alt": "The Clean Lines Volume 01 — interior view 17"
+      },
+      {
+        "src": "assets/projects/vol-1-18.webp",
+        "thumb": "assets/projects/vol-1-18-sm.webp",
+        "alt": "The Clean Lines Volume 01 — interior view 18"
+      },
+      {
+        "src": "assets/projects/vol-1-19.webp",
+        "thumb": "assets/projects/vol-1-19-sm.webp",
+        "alt": "The Clean Lines Volume 01 — interior view 19"
+      },
+      {
+        "src": "assets/projects/vol-1-20.webp",
+        "thumb": "assets/projects/vol-1-20-sm.webp",
+        "alt": "The Clean Lines Volume 01 — interior view 20"
+      },
+      {
+        "src": "assets/projects/vol-1-21.webp",
+        "thumb": "assets/projects/vol-1-21-sm.webp",
+        "alt": "The Clean Lines Volume 01 — interior view 21"
+      },
+      {
+        "src": "assets/projects/vol-1-22.webp",
+        "thumb": "assets/projects/vol-1-22-sm.webp",
+        "alt": "The Clean Lines Volume 01 — interior view 22"
+      },
+      {
+        "src": "assets/projects/vol-1-23.webp",
+        "thumb": "assets/projects/vol-1-23-sm.webp",
+        "alt": "The Clean Lines Volume 01 — interior view 23"
+      },
+      {
+        "src": "assets/projects/vol-1-24.webp",
+        "thumb": "assets/projects/vol-1-24-sm.webp",
+        "alt": "The Clean Lines Volume 01 — interior view 24"
+      },
+      {
+        "src": "assets/projects/vol-1-25.webp",
+        "thumb": "assets/projects/vol-1-25-sm.webp",
+        "alt": "The Clean Lines Volume 01 — interior view 25"
+      },
+      {
+        "src": "assets/projects/vol-1-26.webp",
+        "thumb": "assets/projects/vol-1-26-sm.webp",
+        "alt": "The Clean Lines Volume 01 — interior view 26"
+      },
+      {
+        "src": "assets/projects/vol-1-27.webp",
+        "thumb": "assets/projects/vol-1-27-sm.webp",
+        "alt": "The Clean Lines Volume 01 — interior view 27"
+      },
+      {
+        "src": "assets/projects/vol-1-28.webp",
+        "thumb": "assets/projects/vol-1-28-sm.webp",
+        "alt": "The Clean Lines Volume 01 — interior view 28"
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "name": "Volume 02 — Villa",
+    "images": [
+      {
+        "src": "assets/projects/vol-2-01.webp",
+        "thumb": "assets/projects/vol-2-01-sm.webp",
+        "alt": "The Clean Lines Volume 02 — interior view 01"
+      },
+      {
+        "src": "assets/projects/vol-2-02.webp",
+        "thumb": "assets/projects/vol-2-02-sm.webp",
+        "alt": "The Clean Lines Volume 02 — interior view 02"
+      },
+      {
+        "src": "assets/projects/vol-2-03.webp",
+        "thumb": "assets/projects/vol-2-03-sm.webp",
+        "alt": "The Clean Lines Volume 02 — interior view 03"
+      },
+      {
+        "src": "assets/projects/vol-2-04.webp",
+        "thumb": "assets/projects/vol-2-04-sm.webp",
+        "alt": "The Clean Lines Volume 02 — interior view 04"
+      },
+      {
+        "src": "assets/projects/vol-2-05.webp",
+        "thumb": "assets/projects/vol-2-05-sm.webp",
+        "alt": "The Clean Lines Volume 02 — interior view 05"
+      },
+      {
+        "src": "assets/projects/vol-2-06.webp",
+        "thumb": "assets/projects/vol-2-06-sm.webp",
+        "alt": "The Clean Lines Volume 02 — interior view 06"
+      },
+      {
+        "src": "assets/projects/vol-2-07.webp",
+        "thumb": "assets/projects/vol-2-07-sm.webp",
+        "alt": "The Clean Lines Volume 02 — interior view 07"
+      },
+      {
+        "src": "assets/projects/vol-2-08.webp",
+        "thumb": "assets/projects/vol-2-08-sm.webp",
+        "alt": "The Clean Lines Volume 02 — interior view 08"
+      },
+      {
+        "src": "assets/projects/vol-2-09.webp",
+        "thumb": "assets/projects/vol-2-09-sm.webp",
+        "alt": "The Clean Lines Volume 02 — interior view 09"
+      },
+      {
+        "src": "assets/projects/vol-2-10.webp",
+        "thumb": "assets/projects/vol-2-10-sm.webp",
+        "alt": "The Clean Lines Volume 02 — interior view 10"
+      },
+      {
+        "src": "assets/projects/vol-2-11.webp",
+        "thumb": "assets/projects/vol-2-11-sm.webp",
+        "alt": "The Clean Lines Volume 02 — interior view 11"
+      },
+      {
+        "src": "assets/projects/vol-2-12.webp",
+        "thumb": "assets/projects/vol-2-12-sm.webp",
+        "alt": "The Clean Lines Volume 02 — interior view 12"
+      },
+      {
+        "src": "assets/projects/vol-2-13.webp",
+        "thumb": "assets/projects/vol-2-13-sm.webp",
+        "alt": "The Clean Lines Volume 02 — interior view 13"
+      },
+      {
+        "src": "assets/projects/vol-2-14.webp",
+        "thumb": "assets/projects/vol-2-14-sm.webp",
+        "alt": "The Clean Lines Volume 02 — interior view 14"
+      },
+      {
+        "src": "assets/projects/vol-2-15.webp",
+        "thumb": "assets/projects/vol-2-15-sm.webp",
+        "alt": "The Clean Lines Volume 02 — interior view 15"
+      },
+      {
+        "src": "assets/projects/vol-2-16.webp",
+        "thumb": "assets/projects/vol-2-16-sm.webp",
+        "alt": "The Clean Lines Volume 02 — interior view 16"
+      },
+      {
+        "src": "assets/projects/vol-2-17.webp",
+        "thumb": "assets/projects/vol-2-17-sm.webp",
+        "alt": "The Clean Lines Volume 02 — interior view 17"
+      },
+      {
+        "src": "assets/projects/vol-2-18.webp",
+        "thumb": "assets/projects/vol-2-18-sm.webp",
+        "alt": "The Clean Lines Volume 02 — interior view 18"
+      },
+      {
+        "src": "assets/projects/vol-2-19.webp",
+        "thumb": "assets/projects/vol-2-19-sm.webp",
+        "alt": "The Clean Lines Volume 02 — interior view 19"
+      },
+      {
+        "src": "assets/projects/vol-2-20.webp",
+        "thumb": "assets/projects/vol-2-20-sm.webp",
+        "alt": "The Clean Lines Volume 02 — interior view 20"
+      }
+    ]
+  },
+  {
+    "id": 3,
+    "name": "Volume 03",
+    "images": [
+      {
+        "src": "assets/projects/vol-3-01.webp",
+        "thumb": "assets/projects/vol-3-01-sm.webp",
+        "alt": "The Clean Lines Volume 03 — interior view 01"
+      },
+      {
+        "src": "assets/projects/vol-3-02.webp",
+        "thumb": "assets/projects/vol-3-02-sm.webp",
+        "alt": "The Clean Lines Volume 03 — interior view 02"
+      },
+      {
+        "src": "assets/projects/vol-3-03.webp",
+        "thumb": "assets/projects/vol-3-03-sm.webp",
+        "alt": "The Clean Lines Volume 03 — interior view 03"
+      },
+      {
+        "src": "assets/projects/vol-3-04.webp",
+        "thumb": "assets/projects/vol-3-04-sm.webp",
+        "alt": "The Clean Lines Volume 03 — interior view 04"
+      },
+      {
+        "src": "assets/projects/vol-3-05.webp",
+        "thumb": "assets/projects/vol-3-05-sm.webp",
+        "alt": "The Clean Lines Volume 03 — interior view 05"
+      },
+      {
+        "src": "assets/projects/vol-3-06.webp",
+        "thumb": "assets/projects/vol-3-06-sm.webp",
+        "alt": "The Clean Lines Volume 03 — interior view 06"
+      },
+      {
+        "src": "assets/projects/vol-3-07.webp",
+        "thumb": "assets/projects/vol-3-07-sm.webp",
+        "alt": "The Clean Lines Volume 03 — interior view 07"
+      },
+      {
+        "src": "assets/projects/vol-3-08.webp",
+        "thumb": "assets/projects/vol-3-08-sm.webp",
+        "alt": "The Clean Lines Volume 03 — interior view 08"
+      },
+      {
+        "src": "assets/projects/vol-3-09.webp",
+        "thumb": "assets/projects/vol-3-09-sm.webp",
+        "alt": "The Clean Lines Volume 03 — interior view 09"
+      },
+      {
+        "src": "assets/projects/vol-3-10.webp",
+        "thumb": "assets/projects/vol-3-10-sm.webp",
+        "alt": "The Clean Lines Volume 03 — interior view 10"
+      },
+      {
+        "src": "assets/projects/vol-3-11.webp",
+        "thumb": "assets/projects/vol-3-11-sm.webp",
+        "alt": "The Clean Lines Volume 03 — interior view 11"
+      },
+      {
+        "src": "assets/projects/vol-3-12.webp",
+        "thumb": "assets/projects/vol-3-12-sm.webp",
+        "alt": "The Clean Lines Volume 03 — interior view 12"
+      }
+    ]
+  },
+  {
+    "id": 4,
+    "name": "Volume 04",
+    "images": [
+      {
+        "src": "assets/projects/vol-4-01.webp",
+        "thumb": "assets/projects/vol-4-01-sm.webp",
+        "alt": "The Clean Lines Volume 04 — interior view 01"
+      },
+      {
+        "src": "assets/projects/vol-4-02.webp",
+        "thumb": "assets/projects/vol-4-02-sm.webp",
+        "alt": "The Clean Lines Volume 04 — interior view 02"
+      },
+      {
+        "src": "assets/projects/vol-4-03.webp",
+        "thumb": "assets/projects/vol-4-03-sm.webp",
+        "alt": "The Clean Lines Volume 04 — interior view 03"
+      },
+      {
+        "src": "assets/projects/vol-4-04.webp",
+        "thumb": "assets/projects/vol-4-04-sm.webp",
+        "alt": "The Clean Lines Volume 04 — interior view 04"
+      },
+      {
+        "src": "assets/projects/vol-4-05.webp",
+        "thumb": "assets/projects/vol-4-05-sm.webp",
+        "alt": "The Clean Lines Volume 04 — interior view 05"
+      },
+      {
+        "src": "assets/projects/vol-4-06.webp",
+        "thumb": "assets/projects/vol-4-06-sm.webp",
+        "alt": "The Clean Lines Volume 04 — interior view 06"
+      },
+      {
+        "src": "assets/projects/vol-4-07.webp",
+        "thumb": "assets/projects/vol-4-07-sm.webp",
+        "alt": "The Clean Lines Volume 04 — interior view 07"
+      },
+      {
+        "src": "assets/projects/vol-4-08.webp",
+        "thumb": "assets/projects/vol-4-08-sm.webp",
+        "alt": "The Clean Lines Volume 04 — interior view 08"
+      },
+      {
+        "src": "assets/projects/vol-4-09.webp",
+        "thumb": "assets/projects/vol-4-09-sm.webp",
+        "alt": "The Clean Lines Volume 04 — interior view 09"
+      },
+      {
+        "src": "assets/projects/vol-4-10.webp",
+        "thumb": "assets/projects/vol-4-10-sm.webp",
+        "alt": "The Clean Lines Volume 04 — interior view 10"
+      },
+      {
+        "src": "assets/projects/vol-4-11.webp",
+        "thumb": "assets/projects/vol-4-11-sm.webp",
+        "alt": "The Clean Lines Volume 04 — interior view 11"
+      },
+      {
+        "src": "assets/projects/vol-4-12.webp",
+        "thumb": "assets/projects/vol-4-12-sm.webp",
+        "alt": "The Clean Lines Volume 04 — interior view 12"
+      },
+      {
+        "src": "assets/projects/vol-4-13.webp",
+        "thumb": "assets/projects/vol-4-13-sm.webp",
+        "alt": "The Clean Lines Volume 04 — interior view 13"
+      },
+      {
+        "src": "assets/projects/vol-4-14.webp",
+        "thumb": "assets/projects/vol-4-14-sm.webp",
+        "alt": "The Clean Lines Volume 04 — interior view 14"
+      },
+      {
+        "src": "assets/projects/vol-4-15.webp",
+        "thumb": "assets/projects/vol-4-15-sm.webp",
+        "alt": "The Clean Lines Volume 04 — interior view 15"
+      },
+      {
+        "src": "assets/projects/vol-4-16.webp",
+        "thumb": "assets/projects/vol-4-16-sm.webp",
+        "alt": "The Clean Lines Volume 04 — interior view 16"
+      }
+    ]
+  },
+  {
+    "id": 5,
+    "name": "Volume 05",
+    "images": [
+      {
+        "src": "assets/projects/vol-5-01.webp",
+        "thumb": "assets/projects/vol-5-01-sm.webp",
+        "alt": "The Clean Lines Volume 05 — interior view 01"
+      },
+      {
+        "src": "assets/projects/vol-5-02.webp",
+        "thumb": "assets/projects/vol-5-02-sm.webp",
+        "alt": "The Clean Lines Volume 05 — interior view 02"
+      },
+      {
+        "src": "assets/projects/vol-5-03.webp",
+        "thumb": "assets/projects/vol-5-03-sm.webp",
+        "alt": "The Clean Lines Volume 05 — interior view 03"
+      },
+      {
+        "src": "assets/projects/vol-5-04.webp",
+        "thumb": "assets/projects/vol-5-04-sm.webp",
+        "alt": "The Clean Lines Volume 05 — interior view 04"
+      },
+      {
+        "src": "assets/projects/vol-5-05.webp",
+        "thumb": "assets/projects/vol-5-05-sm.webp",
+        "alt": "The Clean Lines Volume 05 — interior view 05"
+      },
+      {
+        "src": "assets/projects/vol-5-06.webp",
+        "thumb": "assets/projects/vol-5-06-sm.webp",
+        "alt": "The Clean Lines Volume 05 — interior view 06"
+      },
+      {
+        "src": "assets/projects/vol-5-07.webp",
+        "thumb": "assets/projects/vol-5-07-sm.webp",
+        "alt": "The Clean Lines Volume 05 — interior view 07"
+      },
+      {
+        "src": "assets/projects/vol-5-08.webp",
+        "thumb": "assets/projects/vol-5-08-sm.webp",
+        "alt": "The Clean Lines Volume 05 — interior view 08"
+      },
+      {
+        "src": "assets/projects/vol-5-09.webp",
+        "thumb": "assets/projects/vol-5-09-sm.webp",
+        "alt": "The Clean Lines Volume 05 — interior view 09"
+      },
+      {
+        "src": "assets/projects/vol-5-10.webp",
+        "thumb": "assets/projects/vol-5-10-sm.webp",
+        "alt": "The Clean Lines Volume 05 — interior view 10"
+      },
+      {
+        "src": "assets/projects/vol-5-11.webp",
+        "thumb": "assets/projects/vol-5-11-sm.webp",
+        "alt": "The Clean Lines Volume 05 — interior view 11"
+      },
+      {
+        "src": "assets/projects/vol-5-12.webp",
+        "thumb": "assets/projects/vol-5-12-sm.webp",
+        "alt": "The Clean Lines Volume 05 — interior view 12"
+      }
+    ]
+  },
+  {
+    "id": 6,
+    "name": "Volume 06",
+    "images": [
+      {
+        "src": "assets/projects/vol-6-01.webp",
+        "thumb": "assets/projects/vol-6-01-sm.webp",
+        "alt": "The Clean Lines Volume 06 — interior view 01"
+      },
+      {
+        "src": "assets/projects/vol-6-02.webp",
+        "thumb": "assets/projects/vol-6-02-sm.webp",
+        "alt": "The Clean Lines Volume 06 — interior view 02"
+      },
+      {
+        "src": "assets/projects/vol-6-03.webp",
+        "thumb": "assets/projects/vol-6-03-sm.webp",
+        "alt": "The Clean Lines Volume 06 — interior view 03"
+      },
+      {
+        "src": "assets/projects/vol-6-04.webp",
+        "thumb": "assets/projects/vol-6-04-sm.webp",
+        "alt": "The Clean Lines Volume 06 — interior view 04"
+      },
+      {
+        "src": "assets/projects/vol-6-05.webp",
+        "thumb": "assets/projects/vol-6-05-sm.webp",
+        "alt": "The Clean Lines Volume 06 — interior view 05"
+      },
+      {
+        "src": "assets/projects/vol-6-06.webp",
+        "thumb": "assets/projects/vol-6-06-sm.webp",
+        "alt": "The Clean Lines Volume 06 — interior view 06"
+      },
+      {
+        "src": "assets/projects/vol-6-07.webp",
+        "thumb": "assets/projects/vol-6-07-sm.webp",
+        "alt": "The Clean Lines Volume 06 — interior view 07"
+      },
+      {
+        "src": "assets/projects/vol-6-08.webp",
+        "thumb": "assets/projects/vol-6-08-sm.webp",
+        "alt": "The Clean Lines Volume 06 — interior view 08"
+      },
+      {
+        "src": "assets/projects/vol-6-09.webp",
+        "thumb": "assets/projects/vol-6-09-sm.webp",
+        "alt": "The Clean Lines Volume 06 — interior view 09"
+      },
+      {
+        "src": "assets/projects/vol-6-10.webp",
+        "thumb": "assets/projects/vol-6-10-sm.webp",
+        "alt": "The Clean Lines Volume 06 — interior view 10"
+      },
+      {
+        "src": "assets/projects/vol-6-11.webp",
+        "thumb": "assets/projects/vol-6-11-sm.webp",
+        "alt": "The Clean Lines Volume 06 — interior view 11"
+      },
+      {
+        "src": "assets/projects/vol-6-12.webp",
+        "thumb": "assets/projects/vol-6-12-sm.webp",
+        "alt": "The Clean Lines Volume 06 — interior view 12"
+      },
+      {
+        "src": "assets/projects/vol-6-13.webp",
+        "thumb": "assets/projects/vol-6-13-sm.webp",
+        "alt": "The Clean Lines Volume 06 — interior view 13"
+      },
+      {
+        "src": "assets/projects/vol-6-14.webp",
+        "thumb": "assets/projects/vol-6-14-sm.webp",
+        "alt": "The Clean Lines Volume 06 — interior view 14"
+      },
+      {
+        "src": "assets/projects/vol-6-15.webp",
+        "thumb": "assets/projects/vol-6-15-sm.webp",
+        "alt": "The Clean Lines Volume 06 — interior view 15"
+      },
+      {
+        "src": "assets/projects/vol-6-16.webp",
+        "thumb": "assets/projects/vol-6-16-sm.webp",
+        "alt": "The Clean Lines Volume 06 — interior view 16"
+      }
+    ]
+  },
+  {
+    "id": 7,
+    "name": "Volume 07",
+    "images": [
+      {
+        "src": "assets/projects/vol-7-01.webp",
+        "thumb": "assets/projects/vol-7-01-sm.webp",
+        "alt": "The Clean Lines Volume 07 — interior view 01"
+      },
+      {
+        "src": "assets/projects/vol-7-02.webp",
+        "thumb": "assets/projects/vol-7-02-sm.webp",
+        "alt": "The Clean Lines Volume 07 — interior view 02"
+      },
+      {
+        "src": "assets/projects/vol-7-03.webp",
+        "thumb": "assets/projects/vol-7-03-sm.webp",
+        "alt": "The Clean Lines Volume 07 — interior view 03"
+      },
+      {
+        "src": "assets/projects/vol-7-04.webp",
+        "thumb": "assets/projects/vol-7-04-sm.webp",
+        "alt": "The Clean Lines Volume 07 — interior view 04"
+      },
+      {
+        "src": "assets/projects/vol-7-05.webp",
+        "thumb": "assets/projects/vol-7-05-sm.webp",
+        "alt": "The Clean Lines Volume 07 — interior view 05"
+      },
+      {
+        "src": "assets/projects/vol-7-06.webp",
+        "thumb": "assets/projects/vol-7-06-sm.webp",
+        "alt": "The Clean Lines Volume 07 — interior view 06"
+      },
+      {
+        "src": "assets/projects/vol-7-07.webp",
+        "thumb": "assets/projects/vol-7-07-sm.webp",
+        "alt": "The Clean Lines Volume 07 — interior view 07"
+      },
+      {
+        "src": "assets/projects/vol-7-08.webp",
+        "thumb": "assets/projects/vol-7-08-sm.webp",
+        "alt": "The Clean Lines Volume 07 — interior view 08"
+      },
+      {
+        "src": "assets/projects/vol-7-09.webp",
+        "thumb": "assets/projects/vol-7-09-sm.webp",
+        "alt": "The Clean Lines Volume 07 — interior view 09"
+      },
+      {
+        "src": "assets/projects/vol-7-10.webp",
+        "thumb": "assets/projects/vol-7-10-sm.webp",
+        "alt": "The Clean Lines Volume 07 — interior view 10"
+      },
+      {
+        "src": "assets/projects/vol-7-11.webp",
+        "thumb": "assets/projects/vol-7-11-sm.webp",
+        "alt": "The Clean Lines Volume 07 — interior view 11"
+      },
+      {
+        "src": "assets/projects/vol-7-12.webp",
+        "thumb": "assets/projects/vol-7-12-sm.webp",
+        "alt": "The Clean Lines Volume 07 — interior view 12"
+      },
+      {
+        "src": "assets/projects/vol-7-13.webp",
+        "thumb": "assets/projects/vol-7-13-sm.webp",
+        "alt": "The Clean Lines Volume 07 — interior view 13"
+      },
+      {
+        "src": "assets/projects/vol-7-14.webp",
+        "thumb": "assets/projects/vol-7-14-sm.webp",
+        "alt": "The Clean Lines Volume 07 — interior view 14"
+      },
+      {
+        "src": "assets/projects/vol-7-15.webp",
+        "thumb": "assets/projects/vol-7-15-sm.webp",
+        "alt": "The Clean Lines Volume 07 — interior view 15"
+      },
+      {
+        "src": "assets/projects/vol-7-16.webp",
+        "thumb": "assets/projects/vol-7-16-sm.webp",
+        "alt": "The Clean Lines Volume 07 — interior view 16"
+      },
+      {
+        "src": "assets/projects/vol-7-17.webp",
+        "thumb": "assets/projects/vol-7-17-sm.webp",
+        "alt": "The Clean Lines Volume 07 — interior view 17"
+      },
+      {
+        "src": "assets/projects/vol-7-18.webp",
+        "thumb": "assets/projects/vol-7-18-sm.webp",
+        "alt": "The Clean Lines Volume 07 — interior view 18"
+      },
+      {
+        "src": "assets/projects/vol-7-19.webp",
+        "thumb": "assets/projects/vol-7-19-sm.webp",
+        "alt": "The Clean Lines Volume 07 — interior view 19"
+      },
+      {
+        "src": "assets/projects/vol-7-20.webp",
+        "thumb": "assets/projects/vol-7-20-sm.webp",
+        "alt": "The Clean Lines Volume 07 — interior view 20"
+      },
+      {
+        "src": "assets/projects/vol-7-21.webp",
+        "thumb": "assets/projects/vol-7-21-sm.webp",
+        "alt": "The Clean Lines Volume 07 — interior view 21"
+      },
+      {
+        "src": "assets/projects/vol-7-22.webp",
+        "thumb": "assets/projects/vol-7-22-sm.webp",
+        "alt": "The Clean Lines Volume 07 — interior view 22"
+      },
+      {
+        "src": "assets/projects/vol-7-23.webp",
+        "thumb": "assets/projects/vol-7-23-sm.webp",
+        "alt": "The Clean Lines Volume 07 — interior view 23"
+      },
+      {
+        "src": "assets/projects/vol-7-24.webp",
+        "thumb": "assets/projects/vol-7-24-sm.webp",
+        "alt": "The Clean Lines Volume 07 — interior view 24"
+      },
+      {
+        "src": "assets/projects/vol-7-25.webp",
+        "thumb": "assets/projects/vol-7-25-sm.webp",
+        "alt": "The Clean Lines Volume 07 — interior view 25"
+      },
+      {
+        "src": "assets/projects/vol-7-26.webp",
+        "thumb": "assets/projects/vol-7-26-sm.webp",
+        "alt": "The Clean Lines Volume 07 — interior view 26"
+      }
+    ]
+  }
+]
