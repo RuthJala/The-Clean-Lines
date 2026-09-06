@@ -30,28 +30,61 @@ jobs:
       - name: Install dependencies
         run: npm ci --ignore-scripts
 
-      - name: Prepare project image paths
+      - name: Restore project galleries
         run: |
           node --input-type=module <<'NODE'
-          import {readFile, copyFile, mkdir} from 'node:fs/promises';
+          import {readFile, mkdir, writeFile, copyFile} from 'node:fs/promises';
+          import {gunzipSync} from 'node:zlib';
           import {dirname} from 'node:path';
 
           const projects = JSON.parse(await readFile('src/projects.json', 'utf8'));
-          const fallback = 'public/assets/video/poster.webp';
-          let written = 0;
+          const expected = new Set(projects.flatMap(project => project.images.flatMap(image => [image.src, image.thumb])));
+          let restored = false;
 
-          for (const project of projects) {
-            for (const image of project.images) {
-              for (const relativePath of [image.src, image.thumb]) {
-                const target = `public/${relativePath}`;
-                await mkdir(dirname(target), {recursive: true});
-                await copyFile(fallback, target);
-                written++;
+          try {
+            const parts = await Promise.all([
+              readFile('media/projects.tar.gz.part1'),
+              readFile('media/projects.tar.gz.part2'),
+            ]);
+            const tar = gunzipSync(Buffer.concat(parts));
+            let count = 0;
+
+            for (let offset = 0; offset + 512 <= tar.length;) {
+              const header = tar.subarray(offset, offset + 512);
+              if (header.every(byte => byte === 0)) break;
+              const name = header.subarray(0, 100).toString().replace(/\0.*$/s, '');
+              const size = parseInt(header.subarray(124, 136).toString().replace(/\0.*$/s, '').trim(), 8) || 0;
+              const type = header[156];
+              offset += 512;
+
+              if (type === 0 || type === 48) {
+                if (!expected.has(name)) throw new Error(`Unexpected project asset path: ${name}`);
+                const target = `public/${name}`;
+                await mkdir(dirname(target), {recursive:true});
+                await writeFile(target, tar.subarray(offset, offset + size));
+                count++;
               }
+              offset += Math.ceil(size / 512) * 512;
             }
+
+            if (count !== expected.size) throw new Error(`Expected ${expected.size} project derivatives; restored ${count}`);
+            console.log(`Restored ${count} full project image derivatives from the bundled source archive.`);
+            restored = true;
+          } catch (error) {
+            console.warn(`Full gallery restore unavailable: ${error.message}`);
           }
 
-          console.log(`Prepared ${written} project image paths using the committed villa poster fallback.`);
+          if (!restored) {
+            const fallback = 'public/assets/video/poster.webp';
+            let written = 0;
+            for (const relativePath of expected) {
+              const target = `public/${relativePath}`;
+              await mkdir(dirname(target), {recursive:true});
+              await copyFile(fallback, target);
+              written++;
+            }
+            console.log(`Used safe fallback for ${written} project image paths.`);
+          }
           NODE
 
       - name: Install ffmpeg
