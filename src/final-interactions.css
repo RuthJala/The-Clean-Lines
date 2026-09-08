@@ -1,0 +1,103 @@
+/* Final interaction polish: native-feeling swipe, clear affordance, calm gallery viewer. */
+
+.work-stage figure > a{
+  touch-action:pan-y;
+  user-select:none;
+  -webkit-user-select:none;
+  -webkit-user-drag:none;
+  cursor:grab;
+}
+.work-stage figure > a:active,
+.work-stage figure > a.is-swiping{cursor:grabbing}
+.work-stage figure img,
+.gallery img,
+.lightbox img{
+  -webkit-user-drag:none;
+  user-select:none;
+  -webkit-user-select:none;
+}
+.work-stage figure.swipe-next{animation:tclSwipeNext .34s cubic-bezier(.2,.72,.2,1)}
+.work-stage figure.swipe-prev{animation:tclSwipePrev .34s cubic-bezier(.2,.72,.2,1)}
+@keyframes tclSwipeNext{
+  0%{opacity:.72;transform:translateX(11px)}
+  100%{opacity:1;transform:translateX(0)}
+}
+@keyframes tclSwipePrev{
+  0%{opacity:.72;transform:translateX(-11px)}
+  100%{opacity:1;transform:translateX(0)}
+}
+
+.lightbox{
+  touch-action:pan-y;
+  overscroll-behavior:contain;
+  background:rgba(18,18,15,.97)!important;
+}
+.lightbox > img{
+  width:auto!important;
+  height:auto!important;
+  max-width:min(94vw,1680px)!important;
+  max-height:84svh!important;
+  object-fit:contain!important;
+  box-shadow:0 28px 90px rgba(0,0,0,.28);
+}
+.lightbox > div{
+  min-height:58px;
+  align-items:center;
+}
+.lightbox > div button{
+  min-height:44px;
+  padding:10px 12px;
+  font-weight:600;
+  letter-spacing:.02em;
+}
+.lightbox .close{
+  width:48px!important;
+  height:48px!important;
+  display:grid!important;
+  place-items:center;
+  border-radius:50%;
+  background:rgba(255,255,255,.08)!important;
+  backdrop-filter:blur(10px);
+  -webkit-backdrop-filter:blur(10px);
+}
+
+@media(max-width:700px){
+  .work-stage figcaption::after{
+    content:'SWIPE TO EXPLORE';
+    margin-left:auto;
+    font-size:8px;
+    letter-spacing:.16em;
+    opacity:.56;
+    white-space:nowrap;
+  }
+  .lightbox{
+    padding:70px 14px 18px!important;
+  }
+  .lightbox > img{
+    max-width:100%!important;
+    max-height:76svh!important;
+  }
+  .lightbox > div{
+    width:100%;
+    padding-top:14px;
+  }
+  .lightbox > div::before{
+    content:'SWIPE';
+    position:absolute;
+    left:50%;
+    transform:translateX(-50%);
+    top:-2px;
+    font-size:8px;
+    letter-spacing:.18em;
+    opacity:.48;
+  }
+  .lightbox > div button{
+    min-width:92px;
+    font-size:11px;
+  }
+}
+
+@media(prefers-reduced-motion:reduce){
+  .work-stage figure.swipe-next,
+  .work-stage figure.swipe-prev{animation:none}
+}
