@@ -1,5 +1,6 @@
 let premiumObserver;
 let premiumFrame = 0;
+let filmCounterRaf = 0;
 
 function addQuoteAction() {
   const section = document.querySelector('.after-film');
@@ -23,6 +24,36 @@ function addQuoteAction() {
   quote.setAttribute('aria-label', 'Get a quote from The Clean Lines');
   quote.innerHTML = 'Get a quote <span aria-hidden="true">↗</span>';
   actions.appendChild(quote);
+}
+
+function addLuxuryWordmark() {
+  document.querySelectorAll('.logo').forEach((logo) => {
+    if (logo.querySelector('.logo-luxury-wordmark')) return;
+    const img = logo.querySelector('img');
+    if (!img) return;
+    img.alt = '';
+    img.setAttribute('aria-hidden', 'true');
+    const wordmark = document.createElement('span');
+    wordmark.className = 'logo-luxury-wordmark';
+    wordmark.innerHTML = '<strong>THE CLEAN LINES</strong><small>INTERIOR DESIGN</small>';
+    logo.appendChild(wordmark);
+  });
+}
+
+function installFilmCounter() {
+  const counter = document.querySelector('.progress-count');
+  const canvas = document.querySelector('.walkthrough-canvas');
+  if (!counter || !canvas || counter.dataset.frames1000 === 'true') return;
+  counter.dataset.frames1000 = 'true';
+  cancelAnimationFrame(filmCounterRaf);
+
+  const tick = () => {
+    if (!document.body.contains(counter) || !document.body.contains(canvas)) return;
+    const frame = Math.max(0, Math.min(999, Number(canvas.dataset.frame || 0)));
+    counter.textContent = `${String(frame + 1).padStart(4,'0')} / 1000`;
+    filmCounterRaf = requestAnimationFrame(tick);
+  };
+  filmCounterRaf = requestAnimationFrame(tick);
 }
 
 function upgradeFeaturedImages() {
@@ -99,6 +130,8 @@ function tagPages() {
 
 function applyPremiumRefresh() {
   addQuoteAction();
+  addLuxuryWordmark();
+  installFilmCounter();
   upgradeFeaturedImages();
   reorderServices();
   tagPages();
