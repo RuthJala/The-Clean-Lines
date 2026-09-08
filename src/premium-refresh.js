@@ -1,6 +1,5 @@
 let premiumObserver;
 let premiumFrame = 0;
-let filmCounterRaf = 0;
 
 function addQuoteAction() {
   const section = document.querySelector('.after-film');
@@ -38,23 +37,6 @@ function addLuxuryWordmark() {
     wordmark.innerHTML = '<strong>THE CLEAN LINES</strong><small>INTERIOR DESIGN</small>';
     logo.appendChild(wordmark);
   });
-}
-
-function installFilmCounter() {
-  const counter = document.querySelector('.progress-count');
-  const canvas = document.querySelector('.walkthrough-canvas');
-  if (!counter || !canvas || counter.dataset.frames150 === 'true') return;
-  counter.dataset.frames150 = 'true';
-  cancelAnimationFrame(filmCounterRaf);
-
-  const tick = () => {
-    if (!document.body.contains(counter) || !document.body.contains(canvas)) return;
-    const internalFrame = Math.max(0, Math.min(449, Number(canvas.dataset.frame || 0)));
-    const displayStep = Math.max(1, Math.min(150, Math.round((internalFrame / 449) * 149) + 1));
-    counter.textContent = `${String(displayStep).padStart(3,'0')} / 150`;
-    filmCounterRaf = requestAnimationFrame(tick);
-  };
-  filmCounterRaf = requestAnimationFrame(tick);
 }
 
 function upgradeFeaturedImages() {
@@ -133,7 +115,6 @@ function tagPages() {
 function applyPremiumRefresh() {
   addQuoteAction();
   addLuxuryWordmark();
-  installFilmCounter();
   upgradeFeaturedImages();
   reorderServices();
   tagPages();
