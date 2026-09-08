@@ -1,0 +1,103 @@
+/* THE CLEAN LINES — final luxury editorial direction */
+:root{
+  --lux-ink:#1e1d19;
+  --lux-deep:#24261f;
+  --lux-deep-2:#2c2f26;
+  --lux-paper:#f3f0e8;
+  --lux-stone:#d8d0c3;
+  --lux-muted:#9b978d;
+  --lux-line:rgba(243,240,232,.18);
+}
+
+body,button,input,textarea,select{
+  font-family:'Inter',Manrope,Arial,sans-serif!important;
+  font-feature-settings:'kern' 1,'liga' 1;
+}
+h1,h2,h3,.chapter-copy h1,.after-film h2,.studio-grid h2,.work-intro h1,.page h1,footer>a{
+  font-family:'Bodoni Moda','Cormorant Garamond',Georgia,serif!important;
+  font-weight:400!important;
+  letter-spacing:-.045em!important;
+}
+
+/* Brand lockup */
+.site-header{height:112px;padding:0 5.2%!important}
+.logo,.site-header .logo{
+  width:auto!important;height:auto!important;display:flex!important;align-items:center!important;gap:14px!important;
+  background:transparent!important;overflow:visible!important;
+}
+.logo img,.site-header .logo img{
+  position:static!important;width:56px!important;height:56px!important;max-width:56px!important;
+  object-fit:contain!important;filter:none!important;mix-blend-mode:normal!important;
+}
+.logo-luxury-wordmark{display:flex;flex-direction:column;gap:4px;line-height:1;min-width:max-content}
+.logo-luxury-wordmark strong{
+  font-family:'Bodoni Moda',Georgia,serif;font-size:22px;font-weight:500;letter-spacing:.055em;line-height:1;color:inherit
+}
+.logo-luxury-wordmark small{
+  font-family:'Inter',sans-serif;font-size:7px;font-weight:500;letter-spacing:.31em;text-transform:uppercase;opacity:.7
+}
+.site-header.on-film .logo{color:#fff}
+.site-header.on-film .logo img{filter:drop-shadow(0 2px 10px rgba(0,0,0,.28))!important}
+.site-header nav{gap:38px!important}
+.site-header nav a{
+  font-family:'Inter',sans-serif!important;font-size:12px!important;font-weight:500!important;
+  letter-spacing:.075em!important;text-transform:uppercase!important;opacity:.86!important
+}
+
+/* Homepage film: cleaner, editorial, less muddy */
+.film-shade{
+  background:
+    linear-gradient(90deg,rgba(10,11,9,.33) 0%,rgba(10,11,9,.08) 38%,rgba(10,11,9,.03) 70%,rgba(10,11,9,.12) 100%),
+    linear-gradient(180deg,rgba(10,11,9,.22) 0%,rgba(10,11,9,.01) 42%,rgba(10,11,9,.13) 72%,rgba(10,11,9,.55) 100%)!important;
+}
+.film-top{font-family:'Inter',sans-serif!important;font-size:10px!important;letter-spacing:.22em!important}
+.chapter-copy{left:6.1%!important;bottom:18.7%!important}
+.chapter-copy>.eyebrow{font-family:'Inter',sans-serif!important;font-weight:500!important;font-size:9px!important;letter-spacing:.25em!important}
+.chapter-copy h1{
+  font-size:clamp(82px,8.6vw,142px)!important;line-height:.83!important;color:#fff!important;
+  text-shadow:0 4px 28px rgba(0,0,0,.14)!important
+}
+.chapter-copy>p:not(.eyebrow){font-size:13px!important;font-weight:400!important;letter-spacing:.005em!important;max-width:430px!important;color:rgba(255,255,255,.9)!important}
+.chapter-dots button{font-family:'Inter',sans-serif!important;font-size:9px!important;letter-spacing:.06em!important}
+.progress-count{font-variant-numeric:tabular-nums;letter-spacing:.08em!important;min-width:92px;text-align:right}
+.film-bottom{font-family:'Inter',sans-serif!important}
+
+/* Editorial details across all pages */
+.eyebrow{font-family:'Inter',sans-serif!important;font-weight:500!important;letter-spacing:.23em!important}
+.pill,.image-link,.contact-link,.next-project a,.work-stage figcaption,.services-list a{
+  font-family:'Inter',sans-serif!important;font-weight:500!important;letter-spacing:.035em!important
+}
+.after-film{padding-top:138px!important;padding-bottom:145px!important}
+.after-film h2{font-size:clamp(58px,5.8vw,90px)!important;line-height:.96!important}
+.services-list h2{font-size:clamp(48px,4vw,62px)!important;line-height:.9!important}
+.work-intro h1{font-size:clamp(88px,8.8vw,140px)!important;line-height:.81!important}
+.studio-grid h2{font-size:clamp(58px,5vw,78px)!important;line-height:.9!important}
+.page h1{font-size:clamp(78px,7.6vw,124px)!important;line-height:.86!important}
+
+/* Remove tiny/cheap-feeling text treatment */
+.services-list p,.studio-grid p,.work-intro p:not(.eyebrow),.lede{font-size:14px!important;line-height:1.75!important}
+.project-index button{font-family:'Inter',sans-serif!important;font-size:11px!important;font-weight:500!important;letter-spacing:.045em!important}
+
+@media(max-width:700px){
+  .site-header{height:90px!important;padding:0 5.8%!important}
+  .logo,.site-header .logo{gap:9px!important}
+  .logo img,.site-header .logo img{width:42px!important;height:42px!important;max-width:42px!important}
+  .logo-luxury-wordmark strong{font-size:16px;letter-spacing:.045em}
+  .logo-luxury-wordmark small{font-size:5.7px;letter-spacing:.23em}
+  .site-header nav{top:90px!important}
+  .site-header nav a{font-family:'Bodoni Moda',Georgia,serif!important;font-size:31px!important;font-weight:400!important;text-transform:none!important;letter-spacing:-.025em!important}
+  .film-top{top:112px!important;left:6%!important}
+  .chapter-copy{left:6%!important;right:6%!important;bottom:23.5%!important;max-width:86%!important}
+  .chapter-copy h1{font-size:clamp(58px,15.2vw,82px)!important;line-height:.84!important;letter-spacing:-.055em!important}
+  .chapter-copy>p:not(.eyebrow){font-size:12px!important;line-height:1.6!important;max-width:310px!important}
+  .chapter-dots{right:2.2%!important;top:40%!important}
+  .progress-count{min-width:88px!important;font-size:9px!important}
+  .film-bottom{left:6%!important;right:6%!important}
+  .after-film h2{font-size:48px!important;line-height:.96!important}
+  .services-block h1,.services-page h1{font-size:58px!important;line-height:.9!important}
+  .services-list h2{font-size:42px!important;line-height:.9!important}
+  .work-intro h1{font-size:78px!important;line-height:.82!important}
+  .studio-page>h1{font-size:62px!important;line-height:.84!important}
+  .studio-grid h2{font-size:50px!important;line-height:.9!important}
+  .page h1{font-size:64px!important;line-height:.85!important}
+}
