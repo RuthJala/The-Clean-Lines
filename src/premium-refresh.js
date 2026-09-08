@@ -49,10 +49,8 @@ function installFilmCounter() {
 
   const tick = () => {
     if (!document.body.contains(counter) || !document.body.contains(canvas)) return;
-    // Keep the internal 1000-frame high-resolution sequence for smoothness,
-    // but present a calmer 150-step counter to the visitor.
-    const internalFrame = Math.max(0, Math.min(999, Number(canvas.dataset.frame || 0)));
-    const displayStep = Math.max(1, Math.min(150, Math.round((internalFrame / 999) * 149) + 1));
+    const internalFrame = Math.max(0, Math.min(449, Number(canvas.dataset.frame || 0)));
+    const displayStep = Math.max(1, Math.min(150, Math.round((internalFrame / 449) * 149) + 1));
     counter.textContent = `${String(displayStep).padStart(3,'0')} / 150`;
     filmCounterRaf = requestAnimationFrame(tick);
   };
