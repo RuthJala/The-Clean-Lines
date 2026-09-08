@@ -1,8 +1,7 @@
 import {useEffect, useRef} from 'react';
 
-// High-quality scroll sequence sampled from the original 1080p master.
-// 450 internal frames keep motion fluid while the UI presents a calm 150-step counter.
-const LAST = 449, PER = 2, SHEETS = 225;
+// Complete 33.1-second walkthrough sampled at 20fps, eight frames per WebP sheet.
+const LAST = 661, PER = 8, SHEETS = 83;
 
 export default function ScrollFilm({progress, enabled, onStatus}) {
   const canvas = useRef(null), state = useRef({progress, enabled});
@@ -12,15 +11,13 @@ export default function ScrollFilm({progress, enabled, onStatus}) {
     const el = canvas.current;
     const ctx = el.getContext('2d', {alpha:false, desynchronized:true});
     const mobile = matchMedia('(max-width:700px)').matches;
-    const variant = 'desktop';
-    const sourceWidth = 1600, sourceHeight = 900;
-    const cache = new Map(), pending = new Map(), failed = new Map();
-    const MAX_CACHE = mobile ? 5 : 8;
-    const MAX_PENDING = mobile ? 3 : 5;
-    let stopped = false, position = 0, drawn = -1, raf, lastTime = 0, status = '';
 
-    ctx.imageSmoothingEnabled = true;
-    ctx.imageSmoothingQuality = 'high';
+    const variant = 'desktop';
+    const sourceWidth = 1280, sourceHeight = 720;
+    const cache = new Map(), pending = new Map(), failed = new Map();
+    const MAX_CACHE = mobile ? 18 : 26;
+    const MAX_PENDING = mobile ? 6 : 8;
+    let stopped = false, position = 0, drawn = -1, raf, lastTime = 0, status = '';
 
     const report = value => {
       if (value !== status) {
@@ -36,19 +33,35 @@ export default function ScrollFilm({progress, enabled, onStatus}) {
       const current = sheetOf(position);
       const target = sheetOf(desired());
       const dir = target >= current ? 1 : -1;
-      return [...new Set([
+      const ordered = [
         target,
-        current,
         current + dir,
+        current,
         target - dir,
         current + dir * 2,
         target + dir,
-      ])].filter(i => i >= 0 && i < SHEETS);
+        current - dir,
+        current + dir * 3,
+        target - dir * 2,
+        target + dir * 2,
+      ];
+      return [...new Set(ordered)].filter(i => i >= 0 && i < SHEETS);
+    };
+
+    const keepSheets = () => {
+      const current = sheetOf(position);
+      const target = sheetOf(desired());
+      const keep = new Set(prioritySheets());
+      for (let d = -4; d <= 4; d++) {
+        if (current + d >= 0 && current + d < SHEETS) keep.add(current + d);
+        if (target + d >= 0 && target + d < SHEETS) keep.add(target + d);
+      }
+      return keep;
     };
 
     const prune = () => {
       if (cache.size <= MAX_CACHE) return;
-      const keep = new Set(prioritySheets());
+      const keep = keepSheets();
       for (const [i, bitmap] of cache) {
         if (cache.size <= MAX_CACHE) break;
         if (!keep.has(i)) {
@@ -90,7 +103,7 @@ export default function ScrollFilm({progress, enabled, onStatus}) {
           prune();
         }
       } catch (error) {
-        if (!stopped && error.name !== 'AbortError') failed.set(i, Date.now() + 1600);
+        if (!stopped && error.name !== 'AbortError') failed.set(i, Date.now() + 2200);
       } finally {
         pending.delete(i);
       }
@@ -104,8 +117,8 @@ export default function ScrollFilm({progress, enabled, onStatus}) {
       const outW = sourceWidth * scale, outH = sourceHeight * scale;
       ctx.drawImage(
         bitmap,
-        cell * sourceWidth,
-        0,
+        (cell % 2) * sourceWidth,
+        Math.floor(cell / 2) * sourceHeight,
         sourceWidth,
         sourceHeight,
         (el.width - outW) / 2,
@@ -121,8 +134,7 @@ export default function ScrollFilm({progress, enabled, onStatus}) {
 
     const resize = () => {
       const r = el.getBoundingClientRect();
-      // Cap the backing canvas to avoid iPhone Safari spending frames on needless pixels.
-      const ratio = Math.min(devicePixelRatio || 1, mobile ? 2 : 1.8);
+      const ratio = Math.min(devicePixelRatio || 1, mobile ? 2 : 1.9);
       el.width = Math.max(1, Math.round(r.width * ratio));
       el.height = Math.max(1, Math.round(r.height * ratio));
       drawn = -1;
@@ -130,12 +142,13 @@ export default function ScrollFilm({progress, enabled, onStatus}) {
 
     const tick = time => {
       if (stopped) return;
-      const dt = Math.min(32, time - (lastTime || time));
+      const dt = Math.min(42, time - (lastTime || time));
       lastTime = time;
       const target = desired();
-      const smoothingMs = mobile ? 30 : 36;
+
+      const smoothingMs = mobile ? 48 : 55;
       let next = position + (target - position) * (1 - Math.exp(-dt / smoothingMs));
-      if (Math.abs(next - target) < .035) next = target;
+      if (Math.abs(next - target) < .06) next = target;
 
       const currentSheet = sheetOf(position);
       const nextSheet = sheetOf(next);
@@ -143,12 +156,12 @@ export default function ScrollFilm({progress, enabled, onStatus}) {
 
       if (cache.has(nextSheet)) {
         position = next;
-      } else if (cache.has(targetSheet) && Math.abs(target - position) > PER * 1.3) {
+      } else if (cache.has(targetSheet) && Math.abs(target - position) > PER * 1.35) {
         position = target;
       } else if (cache.has(currentSheet)) {
         const start = currentSheet * PER;
         const end = Math.min(LAST, start + PER - 1);
-        position = target >= position ? Math.min(next, end + .28) : Math.max(next, start - .28);
+        position = target >= position ? Math.min(next, end + .45) : Math.max(next, start - .45);
       }
 
       const frame = Math.max(0, Math.min(LAST, Math.round(position)));
@@ -167,6 +180,7 @@ export default function ScrollFilm({progress, enabled, onStatus}) {
     el.dataset.sequence = variant;
     resize();
     addEventListener('resize', resize, {passive:true});
+
     for (let i = 0; i < (mobile ? 3 : 4); i++) void load(i);
     raf = requestAnimationFrame(tick);
 
