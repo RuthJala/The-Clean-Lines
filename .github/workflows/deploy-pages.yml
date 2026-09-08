@@ -62,18 +62,18 @@ jobs:
           test "$SIZE" -gt 70000000
           ffprobe -v error -select_streams v:0 -show_entries stream=width,height,r_frame_rate -of default=noprint_wrappers=1 public/assets/video/villa-master.mp4
 
-      - name: Generate premium 1000-frame walkthrough sheets
+      - name: Generate smooth high-quality walkthrough sheets
         run: |
           rm -rf public/assets/walkthrough
           mkdir -p public/assets/walkthrough/desktop
           ffmpeg -hide_banner -loglevel error -y \
             -i public/assets/video/villa-master.mp4 \
-            -vf "fps=30,scale=1920:1080:flags=lanczos,eq=contrast=1.035:brightness=0.004:saturation=0.97:gamma=1.015,unsharp=5:5:0.42:3:3:0.18,tpad=stop_mode=clone:stop_duration=0.24,tile=2x2:nb_frames=4" \
-            -frames:v 250 -start_number 0 -c:v libwebp -q:v 86 -compression_level 4 \
+            -vf "fps=13.6,scale=1600:900:flags=lanczos,eq=contrast=1.025:brightness=0.003:saturation=0.98:gamma=1.01,unsharp=5:5:0.30:3:3:0.10,tpad=stop_mode=clone:stop_duration=0.20,tile=2x1:nb_frames=2" \
+            -frames:v 225 -start_number 0 -c:v libwebp -q:v 84 -compression_level 4 \
             public/assets/walkthrough/desktop/sheet-%03d.webp
           COUNT=$(find public/assets/walkthrough/desktop -name 'sheet-*.webp' | wc -l)
-          echo "Generated $COUNT premium walkthrough sheets"
-          test "$COUNT" -eq 250
+          echo "Generated $COUNT optimized walkthrough sheets"
+          test "$COUNT" -eq 225
 
       - name: Build site
         run: npx vite build
