@@ -4,6 +4,7 @@ import { App } from "./App.jsx";
 import "./styles.css";
 import "./premium-refresh.css";
 import "./logo-fix.css";
+import "./luxury-final.css";
 import "./premium-refresh.js";
 
 createRoot(document.getElementById("root")).render(
