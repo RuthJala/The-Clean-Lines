@@ -30,10 +30,11 @@ jobs:
       - name: Install dependencies
         run: npm ci --ignore-scripts
 
-      - name: Install ffmpeg
+      - name: Install media tools
         run: |
           sudo apt-get update -qq
           sudo apt-get install -y -qq ffmpeg
+          python3 -m pip install --break-system-packages --quiet gdown
 
       - name: Cache optimized project gallery
         id: project-cache
@@ -52,18 +53,27 @@ jobs:
           echo "Project gallery contains $COUNT WebP files"
           test "$COUNT" -eq 260
 
-      - name: Generate scroll walkthrough frame sheets
+      - name: Download original VOL-02 walkthrough master
+        run: |
+          mkdir -p public/assets/video
+          gdown --fuzzy "https://drive.google.com/file/d/1BnFpsDtqggu4ED_eBWu0jKrXP1Nh2ww8/view?usp=sharing" -O public/assets/video/villa-master.mp4
+          SIZE=$(stat -c%s public/assets/video/villa-master.mp4)
+          echo "Master video size: $SIZE bytes"
+          test "$SIZE" -gt 70000000
+          ffprobe -v error -select_streams v:0 -show_entries stream=width,height,r_frame_rate -of default=noprint_wrappers=1 public/assets/video/villa-master.mp4
+
+      - name: Generate premium 1000-frame walkthrough sheets
         run: |
           rm -rf public/assets/walkthrough
           mkdir -p public/assets/walkthrough/desktop
           ffmpeg -hide_banner -loglevel error -y \
-            -i public/assets/video/villa-desktop.mp4 \
-            -vf "fps=20,scale=1280:720:flags=lanczos,tpad=stop_mode=clone:stop_duration=0.20,tile=2x4:nb_frames=8" \
-            -frames:v 83 -start_number 0 -c:v libwebp -q:v 72 \
+            -i public/assets/video/villa-master.mp4 \
+            -vf "fps=30,scale=1920:1080:flags=lanczos,eq=contrast=1.035:brightness=0.004:saturation=0.97:gamma=1.015,unsharp=5:5:0.42:3:3:0.18,tpad=stop_mode=clone:stop_duration=0.24,tile=2x2:nb_frames=4" \
+            -frames:v 250 -start_number 0 -c:v libwebp -q:v 86 -compression_level 4 \
             public/assets/walkthrough/desktop/sheet-%03d.webp
           COUNT=$(find public/assets/walkthrough/desktop -name 'sheet-*.webp' | wc -l)
-          echo "Generated $COUNT walkthrough sheets"
-          test "$COUNT" -eq 83
+          echo "Generated $COUNT premium walkthrough sheets"
+          test "$COUNT" -eq 250
 
       - name: Build site
         run: npx vite build
